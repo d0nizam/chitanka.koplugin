@@ -149,6 +149,7 @@ function UI:showDetail(item)
     local title_text = table.concat(title_parts, "\n")
 
     -- Бутони
+    local dialog
     local buttons = {}
     if item.has_cover and item.kind == "book" and item.id then
         buttons[#buttons + 1] = { {
@@ -168,7 +169,6 @@ function UI:showDetail(item)
         callback = function() UIManager:close(dialog) end,
     } }
 
-    local dialog
     dialog = ButtonDialog:new{
         title = title_text,
         title_align = "center",
