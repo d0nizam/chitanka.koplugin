@@ -259,6 +259,13 @@ function API.coverUrl(id, size)
         API.ASSETS_URL, math.floor(id / 256), id, size or "250")
 end
 
+--- Локален път на кешираната корица (без I/O проверка).
+function API.coverCachePath(id)
+    if not id then return nil end
+    return string.format("%s/cache/chitanka/cover_%d.jpg",
+        DataStorage:getDataDir(), id)
+end
+
 --- URL за сваляне на книга/творба в даден формат.
 function API.downloadUrl(kind, id, slug, fmt)
     local base = (kind == "text") and "/text/" or "/book/"

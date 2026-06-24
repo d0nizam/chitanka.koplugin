@@ -10,7 +10,7 @@ local ConfirmBox = require("ui/widget/confirmbox")
 local Device = require("device")
 local InfoMessage = require("ui/widget/infomessage")
 local InputDialog = require("ui/widget/inputdialog")
-local Menu = require("ui/widget/menu")
+local CoverMenu = require("chitanka/menu")
 local NetworkMgr = require("ui/network/manager")
 local UIManager = require("ui/uimanager")
 local _ = require("gettext")
@@ -76,19 +76,23 @@ function UI:showResults(items, title)
     local menu_items = {}
     for _, item in ipairs(items) do
         menu_items[#menu_items + 1] = {
-            text = self:formatResultLine(item),
-            callback = function() self:onSelectResult(item) end,
+            text      = self:formatResultLine(item),
+            -- book_id и has_cover се четат от CoverMenu за управление на корицата.
+            -- has_cover е true само за книги (kind=="book") с <has-cover/> в XML-а.
+            book_id   = (item.kind == "book") and item.id or nil,
+            has_cover = item.has_cover or false,
+            callback  = function() self:onSelectResult(item) end,
         }
     end
     local menu
-    menu = Menu:new{
-        title = title,
-        item_table = menu_items,
-        is_borderless = true,
-        is_popout = false,
-        width = Screen:getWidth(),
-        height = Screen:getHeight(),
-        onMenuSelect = function(_self, it)
+    menu = CoverMenu:new{
+        title          = title,
+        item_table     = menu_items,
+        is_borderless  = true,
+        is_popout      = false,
+        width          = Screen:getWidth(),
+        height         = Screen:getHeight(),
+        onMenuSelect   = function(_self, it)
             if it.callback then it.callback() end
             return true
         end,
