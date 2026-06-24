@@ -24,10 +24,9 @@ No account or login is required. The plugin uses only chitanka.info's public XML
 
 ### Manual
 
-1. Download or clone this repository.
-2. Copy the entire folder (or rename the cloned folder) to `chitanka.koplugin`.
-3. Place it inside the `koreader/plugins/` directory on your device.
-4. Restart KOReader.
+1. Download the repository as a ZIP from GitHub (Code > Download ZIP).
+2. Extract it and copy the `chitanka.koplugin` folder into the `koreader/plugins/` directory on your device.
+3. Restart KOReader.
 
 The plugin appears under the **Search** menu as **Читанка**.
 
@@ -35,13 +34,22 @@ The plugin appears under the **Search** menu as **Читанка**.
 
 ```sh
 cd /path/to/koreader/plugins
-git clone https://github.com/stanevt/chitanka.koplugin
+git clone https://github.com/stanevt/chitanka.koplugin.git chitanka.koplugin
+cd chitanka.koplugin
+git sparse-checkout set chitanka.koplugin
+```
+
+Or simply clone the full repo somewhere and symlink the subfolder:
+
+```sh
+git clone https://github.com/stanevt/chitanka.koplugin.git
+ln -s "$(pwd)/chitanka.koplugin/chitanka.koplugin" /path/to/koreader/plugins/chitanka.koplugin
 ```
 
 To update later:
 
 ```sh
-cd /path/to/koreader/plugins/chitanka.koplugin
+cd /path/to/chitanka.koplugin-repo
 git pull
 ```
 
